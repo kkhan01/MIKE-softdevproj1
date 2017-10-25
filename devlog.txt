@@ -7,3 +7,5 @@ created base.html which acts as a base for all html. allows for chaging of site 
 edwardL -- 2017 - 10 - 24 2:50
 added login.html, with username and password fields, and create accoun or login button
 
+ishM -- 2017 - 10 - 25 2:50
+created app.py and added all routes and basic flask stuffs. 
