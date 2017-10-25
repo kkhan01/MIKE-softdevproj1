@@ -1,5 +1,4 @@
 khinshanK -- 2017-10-24 14:46:33
-
 basic database structuring made
 
 ishM -- 2017 - 10 - 24 2:50
@@ -11,7 +10,8 @@ created base.html which acts as a base for all html. allows for chaging of site 
 edwardL -- 2017 - 10 - 24 2:50
 added login.html, with username and password fields, and create accoun or login button
 
+ishM -- 2017 - 10 - 25 2:50
+created app.py and added all routes and basic flask stuffs. 
+
 khinshanK -- 2017-10-25 14:51:18
-
 made functions to check if a table exists and to make a new story table. also made everything database python modifying into one seamless python file
-
