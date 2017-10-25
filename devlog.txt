@@ -1,5 +1,9 @@
-mahdiI - 2017 - 10 - 24 2:50 : Made edit.html that contains a button and text field. Also added Jinga to spice it up.
+ishM -- 2017 - 10 - 24 2:50
+Made edit.html that contains a button and text field. Also added Jinga to spice it up.
 
-korsunM - 2017 - 10 - 24 2:50 : created base.html which acts as a base for all html. allows for chaging of site title and body.
+maxK -- 2017 - 10 - 24 2:50
+created base.html which acts as a base for all html. allows for chaging of site title and body.
 
+edwardL -- 2017 - 10 - 24 2:50
+added login.html, with username and password fields, and create accoun or login button
 
