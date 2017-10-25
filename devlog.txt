@@ -1,5 +1,1 @@
-10/24/17
-Edward: made login.html with login and create button
-Khinshan:
-Ish:
-Max:
+mahdiI - 2017 - 10 - 24 2:50 : Made edit.html that contains a button and text field. Also added Jinga to spice it up.
