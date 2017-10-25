@@ -1,3 +1,7 @@
+khinshanK -- 2017-10-24 14:46:33
+
+basic database structuring made
+
 ishM -- 2017 - 10 - 24 2:50
 Made edit.html that contains a button and text field. Also added Jinga to spice it up.
 
@@ -6,4 +10,8 @@ created base.html which acts as a base for all html. allows for chaging of site 
 
 edwardL -- 2017 - 10 - 24 2:50
 added login.html, with username and password fields, and create accoun or login button
+
+khinshanK -- 2017-10-25 14:51:18
+
+made functions to check if a table exists and to make a new story table. also made everything database python modifying into one seamless python file
 
