@@ -1,4 +1,4 @@
-from flask import Flask, session, render_template, request, redirect, jinja
+from flask import Flask, session, render_template, request, redirect
 import os
 
 Story = Flask(__name__)
@@ -13,9 +13,7 @@ def root():
 def edit():
         return render_template("edit.html")
 
-#Story.route('/base', methods = ['GET', 'POST'])
-#def base():
-#        return render_template("base.html")
+
 
 
 
