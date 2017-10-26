@@ -5,23 +5,20 @@ Story = Flask(__name__)
 Story.secret_key = os.urandom(64)
 #login.secret_key = os.urandom(64)
 
+
+@Story.route('/')
+def root():
+	return render_template("home.html")
+
+
 @Story.route('/login')
 def login():
 	return render_template("login.html")
 
 
-@Story.route('/')
-def root():
-	return render_template("base.html")
-
-
-
 @Story.route('/edit', methods = ['GET', 'POST'])
 def edit():
         return render_template("edit.html")
-
-
-
 
 
 
