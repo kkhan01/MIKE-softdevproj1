@@ -11,7 +11,10 @@ edwardL -- 2017 - 10 - 24 2:50
 added login.html, with username and password fields, and create accoun or login button
 
 ishM -- 2017 - 10 - 25 2:50
-created app.py and added all routes and basic flask stuffs. 
+created app.py and added all routes and basic flask stuffs.
+
+edwardL -- 2017 - 10 - 25 2:50
+reformatted devlog,  helped ish with app.py
 
 khinshanK -- 2017-10-25 14:51:18
 made functions to check if a table exists and to make a new story table. also made everything database python modifying into one seamless python file
