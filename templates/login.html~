@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 
-{% block content1 %}
-<title>
+{% block title %}
+
 Login to MIKE!
-</title>
+
 {% endblock %}
 
 
-{% block content2 %}
+{% block content %}
 
 <br><br><br><br><br><br><br><br><br>
 <center>

@@ -2,12 +2,12 @@
   {% extends "base.html" %}
  
 
-  {% block content1 %}
+  {% block title %}
    Add To The Story!
   {% endblock %}
  
 
- {% block content2 %}
+ {% block content1 %}
   <form method = 'POST' action = '/'>
       <input type = "text" name = "story_edit" placeholder = "Add a snippet!">
       <br>
