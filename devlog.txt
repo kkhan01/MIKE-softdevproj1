@@ -18,3 +18,6 @@ reformatted devlog,  helped ish with app.py
 
 khinshanK -- 2017-10-25 14:51:18
 made functions to check if a table exists and to make a new story table. also made everything database python modifying into one seamless python file
+
+ishM edwardL -- 2017 - 10 - 26 2:44
+fixed flask and app.py, jinja works with html, stared session cookies
