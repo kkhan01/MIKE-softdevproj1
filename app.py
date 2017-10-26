@@ -2,11 +2,18 @@ from flask import Flask, session, render_template, request, redirect
 import os
 
 Story = Flask(__name__)
+Story.secret_key = os.urandom(64)
 #login.secret_key = os.urandom(64)
 
-@Story.route('/', methods = ['GET', 'POST'])
-def root():
+@Story.route('/login')
+def login():
 	return render_template("login.html")
+
+
+@Story.route('/')
+def root():
+	return render_template("base.html")
+
 
 
 @Story.route('/edit', methods = ['GET', 'POST'])
