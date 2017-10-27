@@ -16,10 +16,9 @@ def story_exists(storyname):
 def make_story(storyname):
 def user_exist(username):
 def add_user(username, password):
-def story_users(storyname):
+def story_users(storyname,user):
 def add_edit(storyname, edit, username):
 def get_edit(storyname):
-
 '''
 
 #makes database basics
@@ -59,6 +58,15 @@ def user_exist(username):
             return True
     return False
 
+#gets a username's pass
+def user_pass(username):
+    command = 'SELECT * FROM ___users'
+    possibility = c.execute(command)
+    for i in possibility:
+        if(i[0] == username):
+            return i[1]
+    return False
+
 #adds a username + pass to the ___users db
 def add_user(username, password):
     if not user_exist(username):
@@ -68,11 +76,15 @@ def add_user(username, password):
     else:
         return False
 
-#return list of users who edited a story
-def story_users(storyname):
+#return if user editted story
+def story_users(storyname, user):
     command = 'SELECT username FROM %s'%storyname
-    ret = c.execute(command)
-    return ret
+    possibility = c.execute(command)
+    for i in possibility:
+        if(i[0] == username):
+            return True
+    else:
+        return False
 
 #adds edit to story database
 #checking of file + user will be in flask app
@@ -87,6 +99,15 @@ def get_edit(storyname):
     line = ''
     for record in records:
         line = record[0]
+    return line
+
+#get last edit's username
+def get_user(storyname):
+    command = 'SELECT * FROM %s'%storyname
+    records = c.execute(command)
+    line = ''
+    for record in records:
+        line = record[1]
     return line
 
 #==========================================================
