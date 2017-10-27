@@ -16,6 +16,13 @@ Home of MIKE!
 <table style="width:33%;display:inline-block">
 <!-- in here will be ajinja for loop to return table 
 of all stories edited by the logged in user -->
+<tr>
+  <th>Story Name </th>
+</tr>
+{% for story in data %}
+<td> <a href="{{ story }}.href" ></a></td>
+{% endfor %}y
+
 </table>
 {% endblock %}
  
