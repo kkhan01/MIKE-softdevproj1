@@ -21,3 +21,7 @@ made functions to check if a table exists and to make a new story table. also ma
 
 ishM edwardL -- 2017 - 10 - 26 2:44
 fixed flask and app.py, jinja works with html, stared session cookies
+
+khinshanK -- 2017-10-26 22:27:42
+
+fixed up all database functions so far and list of functions thus far is: def builder(tablename,args):; def story_exists(storyname):; def make_story(storyname):; def user_exist(username):; def add_user(username, password):; def story_users(storyname):; def add_edit(storyname, edit, username):; def get_edit(storyname):
