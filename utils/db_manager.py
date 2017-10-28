@@ -110,6 +110,16 @@ def get_user(storyname):
         line = record[1]
     return line
 
+#get all stories a user edited
+def user_stories(username):
+    stories = {}
+    command = "SELECT name FROM sqlite_master WHERE type='table' AND name='%s';" %(storyname)
+    ans = c.execute(command)
+    for i in ans:
+        if(i[0] != '___users' and story_users(i[0], username)):
+            stories.append(i[0])
+    return stories
+    
 #==========================================================
 db.commit() #save changes
 db.close() #close database
