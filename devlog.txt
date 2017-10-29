@@ -33,3 +33,6 @@ I finished the login and logout page with cookies plus some jinja sprinkles. Als
 
 ishM -- 2017 - 10 - 29 2:25 AM
 Fixed dbmanger issues
+
+ishM -- 2017 - 10 - 29 12:05 PM
+Finished making an account page and got everything ready to input/output information to/from database. Also added error messages.

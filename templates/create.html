@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content1 %}
+<title>
+CREATE
+</title>
+{% endblock %}
+
+{% block content2 %}
+<br><br><br><br><br><br><br>
+
+<center>
+  <h1>Fill In The Blanks To Create A New Account!</h1>
+  <form method="POST" action = '/creator'>
+    Username:
+    <input type="text" name="username">
+    <br>
+    <br>
+    Password:
+    <input type="password" name="password">
+    <br>
+    <br>
+    Re-Type Password:
+    <input type="password" name="npassword">
+    <br><br>
+    <input type="submit" name="create" value="CREATE ACCOUNT" style="width:150px; height:30px;">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  </form><br>
+
+  {% set messages = get_flashed_messages() %}
+    {% for message in messages %}
+    <h3>{{ message }}</h3>
+  {% endfor %}
+
+</center>
+
+{% endblock %}

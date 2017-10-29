@@ -15,7 +15,6 @@ Login to MIKE!
   <h1>Login Or Create A New Account!</h1>
   <form method="POST">
     Username:
-    {{user}}
     <input type="text" name="username">
     <br>
     <br>
@@ -29,7 +28,7 @@ Login to MIKE!
   </form>
   <br>
 
-  <form method = 'POST' action = '/create'>
+  <form method = 'GET' action = '/create'>
     <input type="submit" name="create" value="Create an account" style="width:150px; height:30px;">
   </form>
   <br>
@@ -38,6 +37,7 @@ Login to MIKE!
     <h3>{{ message }}</h3>
 
   {% endfor %}
+  {{ msg }}
 </center>
 
 {% endblock %}
