@@ -1,6 +1,6 @@
 from flask import Flask, session, render_template, request, redirect, flash,  url_for
 import os
-
+import random
 import sqlite3   #enable control of an sqlite database
 
 
@@ -24,6 +24,7 @@ def builder(tablename,args):
     c.execute(command)
     return
 
+
 #checks if a table exists in the database
 def story_exists(storyname):
     command = "SELECT name FROM sqlite_master WHERE type='table' AND name='%s';" %(storyname)
@@ -32,6 +33,7 @@ def story_exists(storyname):
         return i[0] == storyname
     else:
         return False
+
 
 #makes the basic structure if nonexistent
 if(story_exists("___users") == False):
@@ -46,6 +48,7 @@ def make_story(storyname):
     c.execute(command)
     return storyname + " CREATED"
 
+
 #checks if username is in db
 def user_exist(username):
     command = 'SELECT * FROM ___users'
@@ -55,6 +58,7 @@ def user_exist(username):
             return True
     return False
 
+
 #gets a username's pass
 def user_pass(username):
     command = 'SELECT * FROM ___users'
@@ -63,6 +67,7 @@ def user_pass(username):
         if(i[0] == username):
             return i[1]
     return False
+
 
 #adds a username + pass to the ___users db
 def add_user(username, password):
@@ -82,12 +87,14 @@ def story_users(storyname, user):
             return True
     else:
         return False
+    
 
 #adds edit to story database
 #checking of file + user will be in flask app
 def add_edit(storyname, edit, username):
     command = 'INSERT INTO %s VALUES("%s", "%s", %d)'%(storyname, edit, username, lastnum(storyname))
     c.execute(command)
+    
 
 #get last edit from story
 def get_edit(storyname):
@@ -98,6 +105,7 @@ def get_edit(storyname):
         line = record[0]
     return line
 
+
 #get last edit's username
 def get_user(storyname):
     command = 'SELECT * FROM %s'%storyname
@@ -106,6 +114,7 @@ def get_user(storyname):
     for record in records:
         line = record[1]
     return line
+
 
 #get all stories a user edited
 def user_stories(username):
@@ -117,6 +126,7 @@ def user_stories(username):
             stories.append(i[0])
     return stories
 
+
 def not_user_stories(username):
     stories = {}
     command = "SELECT name FROM sqlite_master WHERE type='table' AND name='%s';" %(storyname)
@@ -125,6 +135,7 @@ def not_user_stories(username):
         if(i[0] != '___users' and not story_users(i[0], username)):
             stories.append(i[0])
     return stories
+
 #==========================================================
 
 app = Flask(__name__)
@@ -152,21 +163,26 @@ def root():
                 return redirct(url_for('home'))
         #elif
         return render_template('login.html')
+    
 @app.route('/home')
 def home():
     user = session["username"]
     stories = user_stories(user)
     return render_template('home.html')
+        
     
     
 @app.route('/logout')
 def logout():
     if 'username' in session:
         session.pop("username");
-    return redirect( url_for('root') )
+    return redirect( url_for('root'))
 
 @app.route('/edit')
 def edit():
+    story = random.choice(not_user_stories(session["username"]))
+    storyname = story
+    mostrecentedit = get_edit(storyname)
     if 'username' in session:
         return render_template("edit.html")
     else:
