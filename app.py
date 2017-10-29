@@ -10,17 +10,12 @@ db = sqlite3.connect(f, check_same_thread=False) #open if f exists, otherwise cr
 c = db.cursor()    #facilitate db ops
 
 #==========================================================
+#sql code
+
 #all functions in this file
 #$ grep -i 'keyword' db_manager.py
 '''
-def builder(tablename,args):
-def story_exists(storyname):
-def make_story(storyname):
-def user_exist(username):
-def add_user(username, password):
-def story_users(storyname,user):
-def add_edit(storyname, edit, username):
-def get_edit(storyname):
+
 '''
 
 #makes database basics
