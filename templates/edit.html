@@ -7,10 +7,14 @@
   {% endblock %}
 
 
- {% block content2 %}
-  <form method = 'POST' action = '/magic'>
-      <input type = "text" name = "story_edit" placeholder = "Add a snippet!">
-      <br>
-       <input type = "submit" value = "Submit">
-  </form>
-  {% endblock %}
+{% block content2 %}
+<h1> {{storyname}} </h1>
+<p>
+    {{mostrecentedit}}
+</p>
+<form method = 'POST' action = '/magic'>
+  <input type = "text" name = "story_edit" placeholder = "Add a snippet!">
+  <br>
+  <input type = "submit" value = "Submit">
+</form>
+{% endblock %}
