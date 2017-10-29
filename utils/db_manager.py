@@ -119,7 +119,7 @@ def user_stories(username):
         if(i[0] != '___users' and story_users(i[0], username)):
             stories.append(i[0])
     return stories
-    
+
 #==========================================================
 db.commit() #save changes
 db.close() #close database
