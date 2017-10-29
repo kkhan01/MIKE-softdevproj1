@@ -29,4 +29,7 @@ khinshanK -- 2017-10-28 11:13:01
 made news functions to show all stories users edited, and fixed some functionality for practicality (check comments).
 
 ishM -- 2017 - 10 - 29 1:18 AM
-I finished the login and logout page with cookies plus some jinja sprinkles. Also connected edit page. Commented out db_manager.py in app.py because of reading issues. 
+I finished the login and logout page with cookies plus some jinja sprinkles. Also connected edit page. Commented out db_manager.py in app.py because of reading issues.
+
+ishM -- 2017 - 10 - 29 2:25 AM
+Fixed dbmanger issues

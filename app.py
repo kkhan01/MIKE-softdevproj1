@@ -1,5 +1,6 @@
 from flask import Flask, session, render_template, request, redirect, flash,  url_for
-import os #, utils.db_manager.py
+import os
+from utils import db_manager
 
 Story = Flask(__name__)
 Story.secret_key = os.urandom(64)
@@ -19,6 +20,7 @@ def root():
             else:
                 session["username"] = request.form["username"] # Store username
                 return render_template('home.html', user = session["username"])
+        #elif
         return render_template('login.html')
 
 @Story.route('/logout')
@@ -33,6 +35,19 @@ def edit():
         return render_template("edit.html")
     else:
         return redirect( url_for('root') )
+
+@Story.route('/magic', methods = ["POST"])
+def magic():
+    if 'username' in session:
+        new_edit = request.form["story_edit"]
+        return render_template('home.html', user = session["username"])
+    else:
+        return redirect( url_for('root') )
+
+@Story.route('/create')
+def create():
+    return render_template("create.html")
+
 
 if __name__ == "__main__":
     Story.debug = True
