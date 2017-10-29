@@ -117,6 +117,14 @@ def user_stories(username):
             stories.append(i[0])
     return stories
 
+def not_user_stories(username):
+    stories = {}
+    command = "SELECT name FROM sqlite_master WHERE type='table' AND name='%s';" %(storyname)
+    ans = c.execute(command)
+    for i in ans:
+        if(i[0] != '___users' and not story_users(i[0], username)):
+            stories.append(i[0])
+    return stories
 #==========================================================
 
 app = Flask(__name__)
@@ -146,7 +154,7 @@ def root():
         return render_template('login.html')
 @app.route('/home')
 def home():
-    user = session{"username"]
+    user = session["username"]
     stories = user_stories(user)
     return render_template('home.html')
     
