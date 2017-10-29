@@ -41,7 +41,11 @@ khinshanK -- 2017-10-29 15:12:52
 
 forced to make db_manager and app one file due to multi thread issue. dealing with app.py now (previous coding) and trying to get jinja down
 
-max: -- 2017-10-29 18:34
+maxK -- 2017-10-29 18:34
 
 Edited app.py and home.html to allow for home.html functionailty. Swapped render_template's for redirects as needed. Editing of edit() required for the edit a new story button to be functional
+
+maxK -- 2017-10-29 19:11
+
+Edited app.py and edit.html to allow for the editing of stories. I have not tested it yet, however the code base should be functional in concept at the least. 
 
