@@ -152,7 +152,7 @@ def root():
             print user_exist(request.form["username"])
             print user_pass(request.form["username"])
             
-            if user_exist(request.form["username"]):
+            if not(user_exist(request.form["username"])):
                 flash("Invalid username")
                 return render_template('login.html')
             elif user_pass(request.form["username"]) != request.form["password"]:
