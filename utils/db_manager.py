@@ -4,7 +4,7 @@ import csv       #facilitates CSV I/O
 
 f="data/database.db"
 
-db = sqlite3.connect(f) #open if f exists, otherwise create
+db = sqlite3.connect(f, check_same_thread=False) #open if f exists, otherwise create
 c = db.cursor()    #facilitate db ops
 
 #==========================================================

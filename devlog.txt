@@ -36,3 +36,8 @@ Fixed dbmanger issues
 
 ishM -- 2017 - 10 - 29 12:05 PM
 Finished making an account page and got everything ready to input/output information to/from database. Also added error messages.
+
+khinshanK -- 2017-10-29 15:12:52
+
+forced to make db_manager and app one file due to multi thread issue. dealing with app.py now (previous coding) and trying to get jinja down
+
