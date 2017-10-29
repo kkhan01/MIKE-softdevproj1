@@ -125,7 +125,7 @@ app.secret_key = os.urandom(64)
 @app.route('/', methods = ['GET','POST'])
 def root():
         if 'username' in session:
-            return render_template("home.html")
+            return redirect(url_for('home'))
         elif request.method == 'POST':
             #debugging
             print request.form["username"]
@@ -141,10 +141,16 @@ def root():
                 return render_template('login.html')
             else:
                 session["username"] = request.form["username"] # Store username
-                return render_template('home.html', user = session["username"])
+                return redirct(url_for('home'))
         #elif
         return render_template('login.html')
-
+@app.route('/home')
+def home():
+    user = session{"username"]
+    stories = user_stories(user)
+    return render_template('home.html')
+    
+    
 @app.route('/logout')
 def logout():
     if 'username' in session:
