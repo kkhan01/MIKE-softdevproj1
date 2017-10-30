@@ -1,8 +1,10 @@
+from __future__ import print_function
 from flask import Flask, session, render_template, request, redirect, flash,  url_for
 import os
 import random
 import sqlite3   #enable control of an sqlite database
 import threading
+import sys
 
 lock = threading.RLock()
 
@@ -48,7 +50,6 @@ def make_story(storyname):
     if(story_exists(storyname) == True):
         return storyname + ' EXISTS'
     command = "CREATE TABLE %s (edits TEXT, username TEXT UNIQUE)" %storyname
-    print command
     c.execute(command)
     return storyname + " CREATED"
 
@@ -96,10 +97,9 @@ def story_users(storyname, user):
 #adds edit to story database
 #checking of file + user will be in flask app
 def add_edit(storyname, edit, username):
-    if(story_exists(storyname) == False):
-        return False
     command = 'INSERT INTO %s VALUES("%s", "%s")'%(storyname, edit, username)
     c.execute(command)
+    db.commit() #save changes
     return True
     
 
@@ -116,6 +116,7 @@ def get_edit(storyname):
 if(story_exists("LifeStory") == False):
     make_story("LifeStory")
     add_edit("LifeStory", "Heya! I like to", "shanny_boy")
+    db.commit() #save changes
 
 #get last edit's username
 def get_user(storyname):
@@ -156,6 +157,10 @@ def get_story(storyname):
         story += i[0]+'\n'
     return story
 #==========================================================
+#PRINTS STUFF!!!!
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+    return
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
@@ -188,35 +193,46 @@ def home():
 @app.route('/logout')
 def logout():
     if 'username' in session:
-        session.pop("username");
+        session.pop('username');
     return redirect( url_for('root'))
 
-magicstory = ''
-
+sss = ''
 @app.route('/edit')
 def edit():
+    eprint("HHHHHHHHHHHEEEEEEEEEEEELLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOO")
     stuff = 'a'
-    for i in not_user_stories(session["username"]):
+    for i in not_user_stories(session['username']):
         stuff += 'b'
     if(stuff != 'a'):
-        story = random.choice(not_user_stories(session["username"]))
+        story = random.choice(not_user_stories(session['username']))
         storyname = story
-        magicstory = story
         mostrecentedit = get_edit(storyname)
+        eprint(storyname)
+        sss = storyname
         if 'username' in session:
             return render_template("edit.html", storyname = storyname, mostrecentedit = mostrecentedit)
     return redirect( url_for('root') )
 
-@app.route('/new')
+@app.route('/new', methods = ["GET", "POST"])
 def new():
-    return "abc"
+    if 'username' in session:
+        if request.method == "POST":
+            storytitle = request.form["title"]
+            firstedit = request.form["story_edit"]
+            make_story(storytitle)
+            add_edit(storytitle, firstedit, session['username'])
+            return redirect( url_for ("home"))
+        return render_template("new.html")
+    else:
+         return redirect(url_for ("home"))   
 
 @app.route('/magic', methods = ["POST"])
 def magic():
     if 'username' in session:
         new_edit = request.form["story_edit"]
-        add_edit(magicstory, new_edit, session["username"])
-        return render_template('home.html', user = session["username"])
+        eprint(sss, new_edit, session['username'], sep="---")
+        add_edit(sss, new_edit, session['username'])
+        return render_template('home.html', user = session['username'])
     else:
         return redirect( url_for('root') )
 
@@ -227,13 +243,13 @@ def create():
 
 @app.route('/creator', methods = ["POST"])
 def creator():
-    if request.form["username"].strip() == "":
+    if request.form['username'].strip() == "":
         flash("No username - No Spaces Please")
         return render_template('create.html')
     elif user_exist(request.form["username"].strip()):
         flash("username exist")
         return render_template('create.html')
-    elif request.form["password"].strip() == "":
+    elif request.form['password'].strip() == "":
         flash("No password - No Spaces Please")
         return render_template('create.html')
     elif request.form["npassword"].strip() == "":

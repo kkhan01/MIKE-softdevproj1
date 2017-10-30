@@ -56,3 +56,6 @@ been working with max, most of app's basics are working, now we need to get edit
 khinshanK -- 2017-10-29 22:46:20
 this code is currently working, no one should touch any of the loggging in stuff nor authen. Story is still not saving
 
+khinshanK maxK ishM -- 2017-10-30 00:10:32
+co-coded all of new story. it works
+
