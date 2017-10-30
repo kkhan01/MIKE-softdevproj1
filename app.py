@@ -127,6 +127,13 @@ def get_user(storyname):
         line = record[1]
     return line
 
+#makes a few stories
+for i in range (1,16):
+    alpha = 'story'+ str(i)
+    if(story_exists(alpha) == False):
+        make_story(alpha)
+        add_edit(alpha, "Hey, as number %d I say ..."%i, "shanny_boy")
+        db.commit() #save changes
 
 #get all stories a user edited
 def user_stories(username):
