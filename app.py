@@ -154,7 +154,7 @@ def get_story(storyname):
     command = "SELECT * FROM %s;"%storyname
     ans = c.execute(command)
     for i in ans:
-        story += i[0]+'\n'
+        story += i[0]+'\t--- '+i[1]+'\n'
     return story
 #==========================================================
 #PRINTS STUFF!!!!
