@@ -92,7 +92,7 @@ def story_users(storyname, user):
 #adds edit to story database
 #checking of file + user will be in flask app
 def add_edit(storyname, edit, username):
-    command = 'INSERT INTO %s VALUES("%s", "%s", %d)'%(storyname, edit, username, lastnum(storyname))
+    command = 'INSERT INTO %s VALUES("%s", "%s", %d)'%(storyname, edit, username)
     c.execute(command)
     
 
@@ -126,16 +126,24 @@ def user_stories(username):
             stories.append(i[0])
     return stories
 
-
+#get all stories a user didnt edited
 def not_user_stories(username):
     stories = {}
-    command = "SELECT name FROM sqlite_master WHERE type='table' AND name='%s';" %(storyname)
+    command = "SELECT name FROM sqlite_master WHERE type='table';"
     ans = c.execute(command)
     for i in ans:
         if(i[0] != '___users' and not story_users(i[0], username)):
             stories.append(i[0])
     return stories
 
+#get all edits to a story
+def get_story(storyname):
+    story = ''
+    command = "SELECT * FROM %s;"%storyname
+    ans = c.execute(command)
+    for i in ans:
+        story += i[0]+'\n'
+    return story
 #==========================================================
 
 app = Flask(__name__)
