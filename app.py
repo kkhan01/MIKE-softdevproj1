@@ -16,7 +16,7 @@ c = db.cursor()    #facilitate db ops
 #sql code
 
 #all functions in this file
-#$ grep -i 'keyword' db_manager.py
+#$ grep -i 'keyword' app.py
 '''
 
 '''
@@ -184,12 +184,14 @@ def home():
     return render_template('home.html', user = cuser)
         
     
-    
+
 @app.route('/logout')
 def logout():
     if 'username' in session:
         session.pop("username");
     return redirect( url_for('root'))
+
+magicstory = ''
 
 @app.route('/edit')
 def edit():
@@ -199,9 +201,10 @@ def edit():
     if(stuff != 'a'):
         story = random.choice(not_user_stories(session["username"]))
         storyname = story
+        magicstory = story
         mostrecentedit = get_edit(storyname)
         if 'username' in session:
-            return render_template("edit.html")
+            return render_template("edit.html", storyname = storyname, mostrecentedit = mostrecentedit)
     return redirect( url_for('root') )
 
 @app.route('/new')
@@ -212,6 +215,7 @@ def new():
 def magic():
     if 'username' in session:
         new_edit = request.form["story_edit"]
+        add_edit(magicstory, new_edit, session["username"])
         return render_template('home.html', user = session["username"])
     else:
         return redirect( url_for('root') )
