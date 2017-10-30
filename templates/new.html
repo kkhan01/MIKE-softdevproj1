@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content1 %}
+<title>
+  Make a New Story!
+</title>
+{% endblock %}
+
+{% block content2 %}
+<form method = 'POST' action = '/newmagic'>
+<h1> Story Title </h1>
+<input type = "text" name = "title" placeholder = "Story title here" maxlength = "50">
+<br>
+<h2>Initial story edit </h2>
+<input type = "text" name = "story_edit" placeholder = "Add a snippet in 140 chars or less!" maxlength = "140">
+<input type = "submit" value = "submit">
+</form>
+{% endblock %}
