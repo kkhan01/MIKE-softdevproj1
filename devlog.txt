@@ -53,3 +53,6 @@ login now works
 khinshanK -- 2017-10-29 20:34:40
 been working with max, most of app's basics are working, now we need to get edit page
 
+khinshanK -- 2017-10-29 22:46:20
+this code is currently working, no one should touch any of the loggging in stuff nor authen. Story is still not saving
+

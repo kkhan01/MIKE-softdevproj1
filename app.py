@@ -2,6 +2,9 @@ from flask import Flask, session, render_template, request, redirect, flash,  ur
 import os
 import random
 import sqlite3   #enable control of an sqlite database
+import threading
+
+lock = threading.RLock()
 
 
 f="data/database.db"
@@ -71,12 +74,9 @@ def user_pass(username):
 
 #adds a username + pass to the ___users db
 def add_user(username, password):
-    if not user_exist(username):
-        command = 'INSERT INTO ___users VALUES("%s", "%s")'%(username, password)
-        c.execute(command)
-        return True
-    else:
-        return False
+    command = 'INSERT INTO ___users VALUES("%s", "%s")'%(username, password)
+    c.execute(command)
+    return True
 
 #admin user
 if (user_exist("shanny_boy") == False):
@@ -129,7 +129,7 @@ def get_user(storyname):
 
 #get all stories a user edited
 def user_stories(username):
-    stories = {}
+    stories = []
     command = "SELECT name FROM sqlite_master WHERE type='table';"
     ans = c.execute(command)
     for i in ans:
@@ -139,7 +139,7 @@ def user_stories(username):
 
 #get all stories a user didnt edited
 def not_user_stories(username):
-    stories = {}
+    stories = []
     command = "SELECT name FROM sqlite_master WHERE type='table';"
     ans = c.execute(command)
     for i in ans:
@@ -162,24 +162,26 @@ app.secret_key = os.urandom(64)
 
 @app.route('/', methods = ['GET','POST'])
 def root():
-        if request.method == "POST":
-            username = request.form['username']
-            password = request.form['password']
-            if(user_exist(username)):              
-               if password == user_pass(username):
-                  session['username'] = username
-                  return redirect('home')
-               else:
-                  flash("incorrect Password")
+    if 'username' in session:
+        return redirect(url_for('home'))
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['password']
+        if(user_exist(username)):              
+            if password == user_pass(username):
+                session['username'] = username
+                return redirect(url_for ('home'))
             else:
-               flash("incorrect Username/Password")
-        return render_template('login.html')
+                flash("incorrect Password")
+        else:
+            flash("incorrect Username/Password")
+    return render_template('login.html')
                                          
 @app.route('/home')
 def home():
-    user = session["username"]
-    stories = user_stories(user)
-    return render_template('home.html')
+    cuser = session['username']
+    stories = user_stories(cuser)
+    return render_template('home.html', user = cuser)
         
     
     
@@ -191,13 +193,20 @@ def logout():
 
 @app.route('/edit')
 def edit():
-    story = random.choice(not_user_stories(session["username"]))
-    storyname = story
-    mostrecentedit = get_edit(storyname)
-    if 'username' in session:
-        return render_template("edit.html")
-    else:
-        return redirect( url_for('root') )
+    stuff = 'a'
+    for i in not_user_stories(session["username"]):
+        stuff += 'b'
+    if(stuff != 'a'):
+        story = random.choice(not_user_stories(session["username"]))
+        storyname = story
+        mostrecentedit = get_edit(storyname)
+        if 'username' in session:
+            return render_template("edit.html")
+    return redirect( url_for('root') )
+
+@app.route('/new')
+def new():
+    return "abc"
 
 @app.route('/magic', methods = ["POST"])
 def magic():
@@ -233,11 +242,11 @@ def creator():
         new_user = request.form["username"]
         password = request.form["password"]
         add_user(new_user, password)
+        db.commit() #save changes
         return redirect(url_for ('root') )
     else:
         flash("Somthing Went Wrong, Try Again")
         return render_template('create.html')
-
 
 if __name__ == "__main__":
     app.debug = True
