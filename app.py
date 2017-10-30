@@ -119,7 +119,7 @@ def get_user(storyname):
 #get all stories a user edited
 def user_stories(username):
     stories = {}
-    command = "SELECT name FROM sqlite_master WHERE type='table' AND name='%s';" %(storyname)
+    command = "SELECT name FROM sqlite_master WHERE type='table';"
     ans = c.execute(command)
     for i in ans:
         if(i[0] != '___users' and story_users(i[0], username)):
