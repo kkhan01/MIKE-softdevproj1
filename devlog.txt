@@ -62,3 +62,6 @@ co-coded all of new story. it works
 khinshanK maxK ishM -- 2017-10-30 00:51
 Co-coded creating a new story and editing a new random one. This should be functional with no errors. We will take a small break and then work on viewing the stories.
 
+edwardL -- 2017-10-30 01:00
+refurbished design doc and diagrams, small tweaks 
+

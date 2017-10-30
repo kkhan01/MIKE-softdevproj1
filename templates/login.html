@@ -23,13 +23,18 @@ Login to MIKE!
     <br>
     <br>
     <br>
-    <input type="submit" name="login" value="Login" style="width:150px; height:30px;">
-    
+    <center>
+      <input type="submit" name="login" value="Login" style="width:150px; height:30px;">
+    </center>       
   </form>
+  
   <br>
-
+  <br>
   <form method = 'GET' action = '/create'>
-    <input type="submit" name="create" value="Create an account" style="width:150px; height:30px;">
+    <center>
+      Don't have an account? Make one here!
+      <input type="submit" name="create" value="Create an account" style="width:150px; height:30px;">
+    </center>
   </form>
   <br>
   {% set messages = get_flashed_messages() %}
