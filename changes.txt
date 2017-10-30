@@ -1,0 +1,6 @@
+﻿We added /new and /view for being able to create stories and viewing them.
+Database functionality was changed. There are no longer any ID’s in any of the databases, and are linked by just username. They have also been shortened drastically. 
+The ___user table only contains usernames and paswords.
+The <storyname> table contains edits and usernames, with the most recent edit being at the bottom. 
+Unfortunately, we needed to merge app.py and db_manager into one file, because otherwise we had multi threading issues. 
+We have some odd bugs with solutions which we could probably find, but did not have time too. However, our core code works properly aside from the case in which a user has edited all stories. This causes the homepage to load incorrectly as it is supposed to generate a random unedited story for the edit button, but if it is all edited there is no story, and thus the reference to /edit?story={{randomstory}} breaks, and thus does /home.
