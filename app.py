@@ -130,9 +130,10 @@ def get_user(storyname):
 
 #get all stories a user edited
 def user_stories(username):
+    d = db.cursor()    #facilitate db ops
     stories = []
     command = "SELECT name FROM sqlite_master WHERE type='table';"
-    ans = c.execute(command)
+    ans = d.execute(command)
     for i in ans:
         if(i[0] != '___users' and story_users(i[0], username)):
             stories.append(i[0])
@@ -140,9 +141,10 @@ def user_stories(username):
 
 #get all stories a user didnt edited
 def not_user_stories(username):
+    d = db.cursor()    #facilitate db ops
     stories = []
     command = "SELECT name FROM sqlite_master WHERE type='table';"
-    ans = c.execute(command)
+    ans = d.execute(command)
     for i in ans:
         if(i[0] != '___users' and not story_users(i[0], username)):
             stories.append(i[0])
