@@ -65,3 +65,6 @@ Co-coded creating a new story and editing a new random one. This should be funct
 edwardL -- 2017-10-30 01:00
 refurbished design doc and diagrams, small tweaks 
 
+khinshanK maxK ishM -- 2017-10-30 03:36:46
+everything works, let's get it
+

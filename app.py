@@ -187,10 +187,11 @@ def root():
 @app.route('/home')
 def home():
     if 'username' in session:
-        
+        story = random.choice(not_user_stories(session['username']))
+        eprint("CHOSEN STORY: "+ story)
         cuser = session['username']
         allstories = user_stories(cuser)
-        return render_template('home.html', user = cuser, stories = allstories)
+        return render_template('home.html', user = cuser, stories = allstories, randomstory = story)
     else:
         return redirect(url_for('root'))
         
@@ -202,19 +203,19 @@ def logout():
         session.pop('username');
     return redirect( url_for('root'))
 
-sss = ''
 @app.route('/edit', methods = ["GET","POST"])
 def edit():
-    eprint(not_user_stories(session['username']))
     if 'username' in session and not_user_stories(session['username']):
-        story = random.choice(not_user_stories(session['username']))
-        storyn = story
+        story = request.args.get("story")
+        eprint(story)
         mostrecent = get_edit(story)
+        eprint(mostrecent)
         if request.method == "POST":
             edit = request.form["story_edit"]
-            add_edit(storyn,edit, session['username'])
+            eprint(story)
+            add_edit(story,edit, session['username'])
             return redirect(url_for('home'))
-        return render_template('edit.html', storyname = storyn, mostrecentedit = mostrecent )
+        return render_template('edit.html', storyname = story, mostrecentedit = mostrecent )
     else:
         return redirect(url_for('root'))
    

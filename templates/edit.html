@@ -12,8 +12,8 @@
 <p>
     {{mostrecentedit}}
 </p>
-<form method = 'POST' action = "/edit">
-  <input type = "text" name = "story_edit" placeholder = "Add a snippet in 140 chars or less!" maxlength = "140">
+<form method = 'POST' action = "/edit?story={{storyname}}">
+  <input type = "text" name = "story_edit" placeholder = {{storyname}} maxlength = "140">
   <br>
   <input type = "submit" value = "Submit">
 </form>
