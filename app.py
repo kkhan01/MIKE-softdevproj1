@@ -143,27 +143,19 @@ app.secret_key = os.urandom(64)
 
 @app.route('/', methods = ['GET','POST'])
 def root():
-        if 'username' in session:
-            return redirect(url_for('home'))
-        elif request.method == 'POST':
-            #debugging
-            print request.form["username"]
-            print request.form["password"]
-            print user_exist(request.form["username"])
-            print user_pass(request.form["username"])
-            
-            if not(user_exist(request.form["username"])):
-                flash("Invalid username")
-                return render_template('login.html')
-            elif user_pass(request.form["username"]) != request.form["password"]:
-                flash("Invalid password")
-                return render_template('login.html')
+        if request.method == "POST":
+            username = request.form['username']
+            password = request.form['password']
+            if(user_exist(username)):              
+               if password == user_pass(username):
+                  session['username'] = username
+                  return redirect('home')
+               else:
+                  flash("incorrect Password")
             else:
-                session["username"] = request.form["username"] # Store username
-                return redirct(url_for('home'))
-        #elif
+               flash("incorrect Username/Password")
         return render_template('login.html')
-    
+                                         
 @app.route('/home')
 def home():
     user = session["username"]
