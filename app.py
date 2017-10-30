@@ -88,7 +88,7 @@ def story_users(storyname, user):
     command = 'SELECT username FROM %s'%storyname
     possibility = c.execute(command)
     for i in possibility:
-        if(i[0] == username):
+        if(i[0] == user):
             return True
     else:
         return False
@@ -197,21 +197,21 @@ def logout():
     return redirect( url_for('root'))
 
 sss = ''
-@app.route('/edit')
+@app.route('/edit', methods = ["GET","POST"])
 def edit():
-    eprint("HHHHHHHHHHHEEEEEEEEEEEELLLLLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOO")
-    stuff = 'a'
-    for i in not_user_stories(session['username']):
-        stuff += 'b'
-    if(stuff != 'a'):
+    eprint(not_user_stories(session['username']))
+    if 'username' in session and not_user_stories(session['username']):
         story = random.choice(not_user_stories(session['username']))
-        storyname = story
-        mostrecentedit = get_edit(storyname)
-        eprint(storyname)
-        sss = storyname
-        if 'username' in session:
-            return render_template("edit.html", storyname = storyname, mostrecentedit = mostrecentedit)
-    return redirect( url_for('root') )
+        storyn = story
+        mostrecent = get_edit(story)
+        if request.method == "POST":
+            edit = request.form["story_edit"]
+            add_edit(storyn,edit, session['username'])
+            return redirect(url_for('home'))
+        return render_template('edit.html', storyname = storyn, mostrecentedit = mostrecent )
+    else:
+        return redirect(url_for('root'))
+   
 
 @app.route('/new', methods = ["GET", "POST"])
 def new():
@@ -224,9 +224,9 @@ def new():
             return redirect( url_for ("home"))
         return render_template("new.html")
     else:
-         return redirect(url_for ("home"))   
+         return redirect(url_for ("root"))   
 
-@app.route('/magic', methods = ["POST"])
+'''@app.route('/magic', methods = ["POST"])
 def magic():
     if 'username' in session:
         new_edit = request.form["story_edit"]
@@ -234,7 +234,7 @@ def magic():
         add_edit(sss, new_edit, session['username'])
         return render_template('home.html', user = session['username'])
     else:
-        return redirect( url_for('root') )
+        return redirect( url_for('root') )'''
 
 @app.route('/create')
 def create():
