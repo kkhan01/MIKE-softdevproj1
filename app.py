@@ -154,7 +154,7 @@ def get_story(storyname):
     command = "SELECT * FROM %s;"%storyname
     ans = c.execute(command)
     for i in ans:
-        story += i[0]+'\t--- '+i[1]+'\n'
+        story += i[0]+'\t--- '+i[1]+';'+' \n'
     return story
 #==========================================================
 #PRINTS STUFF!!!!
@@ -184,9 +184,13 @@ def root():
                                          
 @app.route('/home')
 def home():
-    cuser = session['username']
-    stories = user_stories(cuser)
-    return render_template('home.html', user = cuser)
+    if 'username' in session:
+        
+        cuser = session['username']
+        allstories = user_stories(cuser)
+        return render_template('home.html', user = cuser, stories = allstories)
+    else:
+        return redirect(url_for('root'))
         
     
 
@@ -224,7 +228,17 @@ def new():
             return redirect( url_for ("home"))
         return render_template("new.html")
     else:
-         return redirect(url_for ("root"))   
+         return redirect(url_for ("root"))
+
+@app.route('/view', methods = ["GET"])
+def view():
+    if 'username' in session:
+        storyn = request.args.get('story')
+        storystuff = get_story(storyn)
+        return render_template('view.html',story = storystuff, storyname = storyn)
+    else:
+        return redirect(url_for('root'))
+    
 
 '''@app.route('/magic', methods = ["POST"])
 def magic():
