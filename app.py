@@ -44,10 +44,10 @@ if(story_exists("___users") == False):
 def make_story(storyname):
     if(story_exists(storyname) == True):
         return storyname + ' EXISTS'
-    command = "CREATE TABLE %s (edits TEXT, username TEXT UNIQUE);" %(storyname)
+    command = "CREATE TABLE %s (edits TEXT, username TEXT UNIQUE)" %storyname
+    print command
     c.execute(command)
     return storyname + " CREATED"
-
 
 #checks if username is in db
 def user_exist(username):
@@ -78,6 +78,10 @@ def add_user(username, password):
     else:
         return False
 
+#admin user
+if (user_exist("shanny_boy") == False):
+    add_user("shanny_boy", "adminperks")
+
 #return if user editted story
 def story_users(storyname, user):
     command = 'SELECT username FROM %s'%storyname
@@ -92,8 +96,11 @@ def story_users(storyname, user):
 #adds edit to story database
 #checking of file + user will be in flask app
 def add_edit(storyname, edit, username):
-    command = 'INSERT INTO %s VALUES("%s", "%s", %d)'%(storyname, edit, username)
+    if(story_exists(storyname) == False):
+        return False
+    command = 'INSERT INTO %s VALUES("%s", "%s")'%(storyname, edit, username)
     c.execute(command)
+    return True
     
 
 #get last edit from story
@@ -105,6 +112,10 @@ def get_edit(storyname):
         line = record[0]
     return line
 
+#so there's always at least 1 story
+if(story_exists("LifeStory") == False):
+    make_story("LifeStory")
+    add_edit("LifeStory", "Heya! I like to", "shanny_boy")
 
 #get last edit's username
 def get_user(storyname):
