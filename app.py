@@ -233,7 +233,7 @@ def creator():
         new_user = request.form["username"]
         password = request.form["password"]
         add_user(new_user, password)
-        return redirect('root')
+        return redirect(url_for ('root') )
     else:
         flash("Somthing Went Wrong, Try Again")
         return render_template('create.html')

@@ -23,8 +23,10 @@ Login to MIKE!
     <br>
     <br>
     <br>
+    <center>
     <input type="submit" name="login" value="Login" style="width:150px; height:30px;">
-    
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <
   </form>
   <br>
 
